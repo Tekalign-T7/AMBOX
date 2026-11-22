@@ -110,8 +110,9 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
   const [scopeMode, setScopeMode] = useState<'stacked' | 'overlay'>('stacked');
   const [twoSidedSpec, setTwoSidedSpec] = useState<boolean>(false);
   const [specScale, setSpecScale] = useState<'linear' | 'dB'>('linear');
-  const [paramsCollapsed, setParamsCollapsed] = useState<boolean>(true);
+  const [paramsCollapsed, setParamsCollapsed] = useState<boolean>(false);
   const [spectrumCollapsed, setSpectrumCollapsed] = useState<boolean>(true);
+  const [bandwidthCollapsed, setBandwidthCollapsed] = useState<boolean>(true);
 
   // Shared RF / Baseband controls
   const [fc, setFc] = useState<number>(10000);
@@ -129,8 +130,8 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
   );
   const [fdmChannels, setFdmChannels] = useState<FDMChannelConfig[]>([
     { id: 1, label: 'Ch 1', enabled: true, fc: 8000, fm: 700, Am: 1.0, color: '#007AFF' },
-    { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#7C3AED' },
-    { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#6E6E73' },
+    { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#F55706' },
+    { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#100C10' },
   ]);
   const [tunedChannelId, setTunedChannelId] = useState<number>(1);
 
@@ -305,8 +306,8 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
     setMedium('coax');
     setFdmChannels([
       { id: 1, label: 'Ch 1', enabled: true, fc: 8000, fm: 700, Am: 1.0, color: '#007AFF' },
-      { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#7C3AED' },
-      { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#6E6E73' },
+      { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#F55706' },
+      { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#100C10' },
     ]);
     setTunedChannelId(1);
     setAmModulatorMode('linear');
@@ -682,7 +683,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'fdm-rx',
             label: 'y_demod(t)',
             sublabel: `Recovered ${fdmSim.tunedLabel}`,
-            color: '#7C3AED',
+            color: '#F55706',
             data: fdmSim.rxRecovered,
           },
           {
@@ -748,7 +749,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'rc',
               label: 'v_RC(t)',
               sublabel: `RC Envelope (τ=${rcTimeMs.toFixed(2)} ms)`,
-              color: '#7C3AED',
+              color: '#F55706',
               data: amSim.rcDetected,
               overlayOnId: 'rect',
             },
@@ -815,7 +816,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'c',
             label: 'c(t)',
             sublabel: `Carrier (${(fc / 1000).toFixed(0)} kHz)`,
-            color: '#6E6E73',
+            color: '#100C10',
             data: amSim.carrier,
           },
           {
@@ -859,7 +860,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'demod-am',
             label: 'y_demod(t)',
             sublabel: amSim.isOvermodulated ? 'Distorted RC Recovery' : 'RC Envelope Demodulated',
-            color: '#7C3AED',
+            color: '#F55706',
             data: amSim.rcDemodAC,
           },
           {
@@ -931,7 +932,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'demod-i',
               label: 'y_I(t) demod',
               sublabel: 'In-Phase Demodulated',
-              color: '#7C3AED',
+              color: '#F55706',
               data: dsbSim.demodI,
               overlayOnId: 'm-ref',
             },
@@ -939,7 +940,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'demod-q',
               label: 'y_Q(t)',
               sublabel: 'Quadrature Arm',
-              color: '#6E6E73',
+              color: '#100C10',
               data: dsbSim.demodQ,
             },
           ],
@@ -1018,7 +1019,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               dsbRxMode === 'costas'
                 ? 'Costas Demodulated Output'
                 : `Coherent Rx (cos φ = ${dsbSim.gainFactor.toFixed(2)})`,
-            color: '#7C3AED',
+            color: '#F55706',
             data: dsbSim.demodI,
           },
           {
@@ -1079,7 +1080,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'ssb-rx',
               label: 'y_demod(t)',
               sublabel: `Coherent Rx (φ=${ssbPhaseErrDeg}°)`,
-              color: '#7C3AED',
+              color: '#F55706',
               data: ssbSim.demodulated,
               overlayOnId: 'ssb-tx',
             },
@@ -1156,7 +1157,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'ssb-y',
             label: 'y_demod(t)',
             sublabel: 'Coherent Demodulated',
-            color: '#7C3AED',
+            color: '#F55706',
             data: ssbSim.demodulated,
           },
           {
@@ -1244,7 +1245,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
           id: 'vsb-rx',
           label: 'y_demod(t)',
           sublabel: vsbSkew === 0 ? 'Distortion-Free Recovery' : 'Skew Distorted',
-          color: '#7C3AED',
+          color: '#F55706',
           data: safeVsb.demodulated,
         },
         {
@@ -1875,7 +1876,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
   );
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 md:px-7 py-4 space-y-4 max-w-[1560px] w-full mx-auto font-nura">
+    <div className="flex-1 overflow-y-auto px-4 md:px-7 py-4 space-y-4 max-w-[1580px] w-full mx-auto font-nura">
       {/* Compact Editorial Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-0.5">
@@ -2022,9 +2023,9 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
           <div className="flex flex-col lg:flex-row">
             {/* LEFT: White Oscilloscope + Spectrum + Optional Analytical Curve */}
             <div className="flex-1 min-w-0 p-4 md:p-5 space-y-4 bg-white">
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
+              <div className="flex flex-col space-y-6">
                 {/* Time Domain Oscilloscope */}
-                <div className="xl:col-span-6 space-y-2">
+                <div className="w-full space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
@@ -2107,16 +2108,16 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                       xUnitMultiplier={plotCfg.xMult}
                       xLabel={plotCfg.xLabel}
                       height={Math.max(
-                        640,
-                        plotCfg.traces.filter((tr) => !tr.overlayOnId).length * 180
+                        660,
+                        plotCfg.traces.filter((tr) => !tr.overlayOnId).length * 200
                       )}
                       renderParameters={signalParametersControls}
                     />
                   </div>
                 </div>
 
-                {/* Right Analysis Column: Simple Circuit Cards + Spectrum Analyzer */}
-                <div className="xl:col-span-6 space-y-3 xl:border-l xl:border-[#AAAAAA]/30 xl:pl-5">
+                {/* Cards & Analysis Column Stacked Below Signals */}
+                <div className="w-full space-y-4 pt-6 border-t border-[#AAAAAA]/30">
                   {activeTopic !== 'vsb' && (
                     <>
                       {/* Live Modulation & Demodulation Electronic Schematic with Signal/Current Flow */}
@@ -2209,24 +2210,57 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                     )}
                   </div>
 
-                  {/* Occupied Bandwidth Readout */}
-                  <div className="border-t border-[#AAAAAA]/30 pt-3 space-y-1">
-                    <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
-                      <LatexText text={plotCfg.bwTitle} />
-                    </div>
-                    <div className="text-2xl font-bold text-[#1D1D1F] tabular-nums">
-                      {plotCfg.bwValue}
-                    </div>
-                    <p className="text-[11px] text-[#1D1D1F] leading-relaxed">
-                      <LatexText text={plotCfg.bwSub} />
-                    </p>
-                  </div>
+                  {/* Occupied Bandwidth & Telemetry Note Card - Collapsible */}
+                  <div className="bg-white border border-[#AAAAAA]/30 rounded-2xl overflow-hidden shadow-2xs">
+                    <div
+                      onClick={() => setBandwidthCollapsed((c) => !c)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setBandwidthCollapsed((c) => !c);
+                        }
+                      }}
+                      className={`px-3.5 py-2.5 bg-[#F5F5F7] flex items-center justify-between gap-2 cursor-pointer hover:bg-[#E5E5EA]/60 transition-colors ${
+                        !bandwidthCollapsed ? 'border-b border-[#AAAAAA]/30' : ''
+                      }`}
+                    >
+                      <div>
+                        <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
+                          <LatexText text={plotCfg.bwTitle} />
+                        </div>
+                        <h2 className="text-sm font-bold text-[#1D1D1F]">
+                          {plotCfg.bwValue}
+                        </h2>
+                      </div>
 
-                  {/* Quick Key Telemetry */}
-                  <div className="grid grid-cols-2 gap-2">
-                    {theoryCard.stats.slice(0, 4).map((st) => (
-                      <DarkMetricBox key={st.label} label={st.label} value={st.val} />
-                    ))}
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1 text-[10px] text-[#000000]">
+                          <span>{bandwidthCollapsed ? 'Show note' : 'Hide note'}</span>
+                          {bandwidthCollapsed ? (
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          ) : (
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {!bandwidthCollapsed && (
+                      <div className="p-3.5 bg-white space-y-3">
+                        <p className="text-[11px] text-[#1D1D1F] leading-relaxed">
+                          <LatexText text={plotCfg.bwSub} />
+                        </p>
+
+                        {/* Quick Key Telemetry */}
+                        <div className="grid grid-cols-2 gap-2">
+                          {theoryCard.stats.slice(0, 4).map((st) => (
+                            <DarkMetricBox key={st.label} label={st.label} value={st.val} />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2250,7 +2284,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                         x: antennaFcMHz * 1e6,
                         y: antennaData.quarterWaveMeters,
                         label: `${antennaData.quarterWaveMeters.toFixed(1)}m`,
-                        color: '#7C3AED',
+                        color: '#F55706',
                       }}
                       logX
                       logY
@@ -2313,7 +2347,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                         x: Math.min(1, mu),
                         y: ((Math.min(1, mu) ** 2) / (2 + Math.min(1, mu) ** 2)) * 100,
                         label: `${amSim.efficiencyPct.toFixed(1)}%`,
-                        color: '#7C3AED',
+                        color: '#F55706',
                       }}
                       yRange={[0, 40]}
                       xLabel="μ"
@@ -2396,7 +2430,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
 
             {/* RIGHT SIDEBAR: Collapsible & Scrollable Parameter Sidebar Side-by-Side */}
             {!paramsCollapsed && (
-              <aside className="w-full lg:w-[245px] xl:w-[255px] shrink-0 bg-[#F5F5F7] border-t lg:border-t-0 lg:border-l border-[#AAAAAA]/30 p-3.5 flex flex-col justify-between gap-3 lg:sticky lg:top-0 lg:self-start lg:max-h-[calc(100vh-8.5rem)] overflow-hidden">
+              <aside className="w-full lg:w-[225px] xl:w-[235px] shrink-0 bg-[#F5F5F7] border-t lg:border-t-0 lg:border-l border-[#AAAAAA]/30 p-3.5 flex flex-col justify-between gap-3 lg:sticky lg:top-0 lg:self-start lg:max-h-[calc(100vh-8.5rem)] overflow-hidden">
                 <div className="flex items-center justify-between shrink-0">
                   <div className="flex items-center gap-2 text-xs font-bold text-[#1D1D1F]">
                     <Sliders className="w-3.5 h-3.5 text-[#1D1D1F]" />

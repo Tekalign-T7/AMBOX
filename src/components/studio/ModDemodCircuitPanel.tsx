@@ -1413,7 +1413,7 @@ const CircuitComponentEditor: React.FC<{
   const isDirty = Math.abs(currentVal - defaultVal) > 1e-4;
 
   return (
-    <div className="border-t border-[#AAAAAA]/25 pt-2 space-y-2">
+    <div className="bg-white/90 backdrop-blur-md border border-[#AAAAAA]/35 rounded-xl p-2.5 shadow-sm space-y-2">
       {/* Quick-pick component buttons (matches schematic labels) */}
       <div className="flex flex-wrap items-center gap-1">
         <span className="text-[9px] font-mono uppercase tracking-wider text-[#6E6E73] mr-1 flex items-center gap-1">
@@ -1981,9 +1981,9 @@ export const ModDemodCircuitPanel: React.FC<{
   return (
     <CircuitScopeContext.Provider value={scopeContextValue}>
     <div className="font-nura space-y-2.5">
-      {/* SIMPLE COMPACT CIRCUIT CARDS ON BENCH */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        {/* Modulation Circuit Simple Card */}
+      {/* SIMPLE COMPACT CIRCUIT CARDS ON BENCH - HALF WIDTH & CENTERED */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 max-w-[580px] mx-auto pt-2">
+        {/* Modulation Circuit Card - Inspired by Attached UI Design Practice Card */}
         <div
           role="button"
           tabIndex={0}
@@ -1994,52 +1994,36 @@ export const ModDemodCircuitPanel: React.FC<{
               openExpandedCircuit('mod');
             }
           }}
-          className="group bg-white border border-[#AAAAAA]/35 hover:border-[#007AFF] rounded-2xl p-3.5 shadow-2xs transition-all cursor-pointer flex flex-col justify-between gap-2.5 text-left"
+          className="group relative bg-[#E5E5EA] border border-[#AAAAAA]/40 hover:border-[#007AFF] rounded-[28px] sm:rounded-[32px] p-3 sm:p-3.5 shadow-md hover:shadow-[0_16px_36px_rgba(0,122,255,0.18)] transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden text-left mx-auto w-full max-w-[270px]"
         >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="w-7 h-7 rounded-lg bg-[#007AFF]/10 text-[#007AFF] flex items-center justify-center shrink-0">
-                <Cpu className="w-3.5 h-3.5" />
-              </span>
-              <div className="min-w-0">
-                <div className="text-[9px] font-semibold uppercase tracking-wider text-[#6E6E73]">
-                  MODULATION CIRCUIT
-                </div>
-                <div className="text-xs font-bold text-[#1D1D1F] truncate">
-                  {live.topic === 'conventional-am'
-                    ? live.amModulatorMode === 'square-law'
-                      ? 'Square-Law Diode AM'
-                      : 'Class-C Collector AM'
-                    : live.topic === 'dsb-sc'
-                    ? live.dsbTopology === 'ring'
-                      ? '4-Diode Ring Modulator'
-                      : 'Balanced Diode Bridge'
-                    : live.topic === 'ssb'
-                    ? live.ssbMethod === 'phase'
-                      ? 'Hartley Phase-Shift SSB'
-                      : 'Crystal Ladder Filter SSB'
-                    : 'FDM Summing Transmitter'}
-                </div>
-              </div>
-            </div>
+          {/* Inner Image Frame matching UI Design Practice reference */}
+          <div className="relative w-full aspect-[4/3] rounded-[20px] sm:rounded-[22px] overflow-hidden bg-black/80">
+            <img
+              src="/assets/aistudio/download__5__e91d2863.jpg"
+              alt="Modulation Circuit Hardware"
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
+            />
+            {/* Smooth Vignette Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/65 pointer-events-none" />
 
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1D1D1F] group-hover:bg-[#007AFF] text-[#F5F5F7] text-[10px] font-semibold transition-colors shrink-0">
-              <Maximize2 className="w-3 h-3" />
-              <span>Expand</span>
+            {/* Expand Action Button */}
+            <span
+              className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center group-hover:bg-[#007AFF] group-hover:border-[#007AFF] transition-all shadow-md"
+              title="Expand Modulation Circuit Schematic"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#AAAAAA]/20 text-[10.5px]">
-            <span className="text-[#007AFF] font-medium truncate">
-              <LatexText text={circuitMeta.modEq} />
-            </span>
-            <span className="px-1.5 py-0.5 rounded bg-[#F5F5F7] border border-[#AAAAAA]/30 text-[9.5px] font-medium text-[#52525B] shrink-0 tabular-nums">
-              {circuitMeta.modDerived}
-            </span>
+          {/* Bottom Content Section - Only Name with Bold Text */}
+          <div className="pt-3 pb-1 px-1 text-center flex flex-col items-center justify-center">
+            <h3 className="text-[#100C10] text-base sm:text-lg font-bold tracking-tight group-hover:text-[#007AFF] transition-colors text-center">
+              Modulation circuit
+            </h3>
           </div>
         </div>
 
-        {/* Demodulation Circuit Simple Card */}
+        {/* Demodulation Circuit Card - Inspired by Attached UI Design Practice Card */}
         <div
           role="button"
           tabIndex={0}
@@ -2050,45 +2034,32 @@ export const ModDemodCircuitPanel: React.FC<{
               openExpandedCircuit('demod');
             }
           }}
-          className="group bg-white border border-[#AAAAAA]/35 hover:border-[#007AFF] rounded-2xl p-3.5 shadow-2xs transition-all cursor-pointer flex flex-col justify-between gap-2.5 text-left"
+          className="group relative bg-[#E5E5EA] border border-[#AAAAAA]/40 hover:border-[#007AFF] rounded-[28px] sm:rounded-[32px] p-3 sm:p-3.5 shadow-md hover:shadow-[0_16px_36px_rgba(0,122,255,0.18)] transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden text-left mx-auto w-full max-w-[270px]"
         >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="w-7 h-7 rounded-lg bg-[#1D1D1F]/8 text-[#1D1D1F] flex items-center justify-center shrink-0">
-                <Activity className="w-3.5 h-3.5" />
-              </span>
-              <div className="min-w-0">
-                <div className="text-[9px] font-semibold uppercase tracking-wider text-[#6E6E73]">
-                  DEMODULATION CIRCUIT
-                </div>
-                <div className="text-xs font-bold text-[#1D1D1F] truncate">
-                  {live.topic === 'conventional-am'
-                    ? 'Diode + RC Envelope Detector'
-                    : live.topic === 'dsb-sc' && live.dsbRxMode === 'costas'
-                    ? 'Costas I/Q Carrier Loop'
-                    : live.topic === 'motivation'
-                    ? 'Tuned RLC Receiver'
-                    : 'Coherent Synchronous Detector'}
-                </div>
-              </div>
-            </div>
+          {/* Inner Image Frame matching UI Design Practice reference */}
+          <div className="relative w-full aspect-[4/3] rounded-[20px] sm:rounded-[22px] overflow-hidden bg-black/80">
+            <img
+              src="/assets/aistudio/Circuit_Cities_-_Hieu_Tran_12d41424.jpg"
+              alt="Demodulation Circuit Schematic"
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
+            />
+            {/* Smooth Vignette Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/65 pointer-events-none" />
 
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1D1D1F] group-hover:bg-[#007AFF] text-[#F5F5F7] text-[10px] font-semibold transition-colors shrink-0">
-              <Maximize2 className="w-3 h-3" />
-              <span>Expand</span>
+            {/* Expand Action Button */}
+            <span
+              className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center group-hover:bg-[#007AFF] group-hover:border-[#007AFF] transition-all shadow-md"
+              title="Expand Demodulation Circuit Schematic"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#AAAAAA]/20 text-[10.5px]">
-            <span className="text-[#007AFF] font-medium truncate">
-              <LatexText text={circuitMeta.demodEq} />
-            </span>
-            <span
-              className="px-1.5 py-0.5 rounded bg-[#F5F5F7] border border-[#AAAAAA]/30 text-[9.5px] font-bold shrink-0 tabular-nums"
-              style={{ color: demodStatus.color }}
-            >
-              {demodStatus.tag}
-            </span>
+          {/* Bottom Content Section - Only Name with Bold Text */}
+          <div className="pt-3 pb-1 px-1 text-center flex flex-col items-center justify-center">
+            <h3 className="text-[#100C10] text-base sm:text-lg font-bold tracking-tight group-hover:text-[#007AFF] transition-colors text-center">
+              Demodulation circuit
+            </h3>
           </div>
         </div>
       </div>
@@ -2232,14 +2203,13 @@ export const ModDemodCircuitPanel: React.FC<{
                   e.preventDefault();
                 }
               }}
-              className={`relative flex-1 min-h-[380px] overflow-hidden select-none touch-none ${
+              className={`relative flex-1 min-h-[420px] overflow-hidden select-none touch-none ${
                 isDraggingCircuit ? 'cursor-grabbing' : 'cursor-grab'
               }`}
               style={{
-                backgroundColor: '#FAFAFC',
-                backgroundImage: 'radial-gradient(rgba(170, 170, 170, 0.45) 1px, transparent 1px)',
-                backgroundSize: `${Math.round(22 * canvasZoom)}px ${Math.round(22 * canvasZoom)}px`,
-                backgroundPosition: `${canvasPan.x}px ${canvasPan.y}px`,
+                backgroundColor: '#F8F9FA',
+                backgroundImage: 'radial-gradient(rgba(148, 163, 184, 0.45) 1.5px, transparent 1.5px)',
+                backgroundSize: '24px 24px',
               }}
             >
               {/* Floating Canvas Drag Prompt */}
@@ -2250,21 +2220,21 @@ export const ModDemodCircuitPanel: React.FC<{
 
               {/* Movable / Zoomable Circuit Schematic Container */}
               <div
-                className="w-full min-h-full flex flex-col items-center justify-center p-4 sm:p-6 gap-4"
+                className="w-full min-h-full flex flex-col items-center justify-center p-4 sm:p-6 gap-6"
                 style={{
                   transform: `translate3d(${canvasPan.x}px, ${canvasPan.y}px, 0) scale(${canvasZoom})`,
                   transformOrigin: 'center center',
                   transition: isDraggingCircuit ? 'none' : 'transform 120ms ease-out',
                 }}
               >
-      {/* MODULATOR CIRCUIT CARD */}
+      {/* MODULATOR CIRCUIT */}
       {showMod && (
-        <div className="w-full max-w-[940px] bg-white border border-[#AAAAAA]/40 rounded-2xl p-4 space-y-2.5 shadow-[0_12px_32px_-16px_rgba(29,29,31,0.18)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] border-b border-[#AAAAAA]/20 pb-2">
-            <span className="font-semibold text-[#1D1D1F]">
+        <div className="w-full max-w-[940px] space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] px-1">
+            <span className="font-semibold text-[#1D1D1F] bg-white/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#AAAAAA]/35 shadow-2xs">
               <LatexText text={circuitMeta.modTitle} />
             </span>
-            <span className="text-[10.5px] text-[#007AFF]">
+            <span className="text-[10.5px] text-[#007AFF] bg-white/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#AAAAAA]/35 shadow-2xs font-mono">
               <LatexText text={circuitMeta.modEq} />
             </span>
           </div>
@@ -3210,14 +3180,14 @@ export const ModDemodCircuitPanel: React.FC<{
         </div>
       )}
 
-      {/* DEMODULATOR CIRCUIT CARD */}
+      {/* DEMODULATOR CIRCUIT */}
       {showDemod && (
-        <div className="w-full max-w-[940px] bg-white border border-[#AAAAAA]/40 rounded-2xl p-4 space-y-2.5 shadow-[0_12px_32px_-16px_rgba(29,29,31,0.18)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] border-b border-[#AAAAAA]/20 pb-2">
-            <span className="font-semibold text-[#1D1D1F]">
+        <div className="w-full max-w-[940px] space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] px-1">
+            <span className="font-semibold text-[#1D1D1F] bg-white/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#AAAAAA]/35 shadow-2xs">
               <LatexText text={circuitMeta.demodTitle} />
             </span>
-            <span className="text-[10.5px] text-[#007AFF]">
+            <span className="text-[10.5px] text-[#007AFF] bg-white/85 backdrop-blur-md px-3 py-1 rounded-full border border-[#AAAAAA]/35 shadow-2xs font-mono">
               <LatexText text={circuitMeta.demodEq} />
             </span>
           </div>
