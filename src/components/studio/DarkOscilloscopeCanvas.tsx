@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Check, Maximize2, Pause, Play, RotateCcw, Sliders, X } from 'lucide-react';
+import { Check, ChevronDown, ChevronRight, Maximize2, Pause, Play, RotateCcw, Sliders, X } from 'lucide-react';
 
 export interface DarkTrace {
   id: string;
@@ -130,7 +130,7 @@ const SignalLaneBox: React.FC<SignalLaneBoxProps> = ({
   isPrimaryTriggerLane,
   trigLevel,
   showTrigLine,
-  boxHeightPx = 240,
+  boxHeightPx = 270,
   allowExpandDialog = true,
   onExpandDialog,
   onSelectMeasure,
@@ -504,7 +504,7 @@ export const DarkOscilloscopeCanvas: React.FC<DarkOscilloscopeProps> = ({
   mode,
   xUnitMultiplier = 1000,
   xLabel = 'Time / ms',
-  height = 360,
+  height = 390,
   yBoundOverride,
   instrumentVariant = 'dso',
   insideDialog = false,
@@ -533,6 +533,7 @@ export const DarkOscilloscopeCanvas: React.FC<DarkOscilloscopeProps> = ({
   const [showTrigLine, setShowTrigLine] = useState<boolean>(false);
   const [hiddenIds, setHiddenIds] = useState<Record<string, boolean>>({});
   const [selectedMeasureIdx, setSelectedMeasureIdx] = useState<number>(0);
+  const [channelsCollapsed, setChannelsCollapsed] = useState<boolean>(true);
 
   // Widescreen Dialog Modal State ('__ALL__' or primary channel ID)
   const [wideDialogTarget, setWideDialogTarget] = useState<string | null>(null);
@@ -1058,7 +1059,7 @@ export const DarkOscilloscopeCanvas: React.FC<DarkOscilloscopeProps> = ({
                     isPrimaryTriggerLane={idx === 0}
                     trigLevel={trigLevel}
                     showTrigLine={showTrigLine}
-                    boxHeightPx={fillContainer ? 'flex' : 240}
+                    boxHeightPx={fillContainer ? 'flex' : 270}
                     allowExpandDialog={!insideDialog}
                     onExpandDialog={() => {
                       setWideDialogViewMode('overlay');
@@ -1100,41 +1101,56 @@ export const DarkOscilloscopeCanvas: React.FC<DarkOscilloscopeProps> = ({
 
         {/* Tactile Bottom DSO Control Deck */}
         <div className="px-3 py-2 bg-white border-t border-[#AAAAAA]/30 flex flex-wrap items-center justify-between gap-2.5 text-[10px] shrink-0">
-          {/* Channel Enable Checkboxes */}
+          {/* Channel Enable Checkboxes with Collapse Toggle */}
           <div className="flex flex-wrap items-center gap-1.5">
-            {(useIndividualSignalBoxes ? primaryChannels : dedupedTraces).map((tr, idx) => {
-              const hidden = Boolean(hiddenIds[tr.id]);
-              const checked = !hidden;
-              return (
-                <button
-                  key={tr.id}
-                  type="button"
-                  role="checkbox"
-                  aria-checked={checked}
-                  onClick={() => {
-                    toggleChannel(tr.id);
-                    setSelectedMeasureIdx(idx);
-                  }}
-                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded border cursor-pointer transition-all ${
-                    hidden
-                      ? 'bg-[#F5F5F7] border-[#AAAAAA]/30 text-[#8E8E93] opacity-75 hover:border-[#AAAAAA]'
-                      : 'bg-white border-[#AAAAAA]/45 text-[#1D1D1F] font-semibold hover:border-[#007AFF]'
-                  }`}
-                  title={`Toggle CH${idx + 1} (${tr.label})`}
-                >
-                  <span
-                    className={`w-3.5 h-3.5 rounded-[3px] border flex items-center justify-center transition-colors shrink-0 ${
-                      checked
-                        ? 'bg-[#007AFF]/10 border-[#007AFF]'
-                        : 'bg-white border-[#AAAAAA]/60'
+            <button
+              type="button"
+              onClick={() => setChannelsCollapsed((c) => !c)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[#AAAAAA]/35 bg-[#F5F5F7] text-[#1D1D1F] text-[10px] font-semibold hover:border-[#007AFF] cursor-pointer"
+              title={channelsCollapsed ? 'Expand channel checkboxes' : 'Collapse channel checkboxes'}
+            >
+              <span>Channels</span>
+              {channelsCollapsed ? (
+                <ChevronRight className="w-3 h-3 text-[#6E6E73]" />
+              ) : (
+                <ChevronDown className="w-3 h-3 text-[#6E6E73]" />
+              )}
+            </button>
+
+            {!channelsCollapsed &&
+              (useIndividualSignalBoxes ? primaryChannels : dedupedTraces).map((tr, idx) => {
+                const hidden = Boolean(hiddenIds[tr.id]);
+                const checked = !hidden;
+                return (
+                  <button
+                    key={tr.id}
+                    type="button"
+                    role="checkbox"
+                    aria-checked={checked}
+                    onClick={() => {
+                      toggleChannel(tr.id);
+                      setSelectedMeasureIdx(idx);
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded border cursor-pointer transition-all ${
+                      hidden
+                        ? 'bg-[#F5F5F7] border-[#AAAAAA]/30 text-[#8E8E93] opacity-75 hover:border-[#AAAAAA]'
+                        : 'bg-white border-[#AAAAAA]/45 text-[#1D1D1F] font-semibold hover:border-[#007AFF]'
                     }`}
+                    title={`Toggle CH${idx + 1} (${tr.label})`}
                   >
-                    {checked && <Check className="w-2.5 h-2.5 text-[#007AFF]" strokeWidth={3} />}
-                  </span>
-                  <span>CH{idx + 1}</span>
-                </button>
-              );
-            })}
+                    <span
+                      className={`w-3.5 h-3.5 rounded-[3px] border flex items-center justify-center transition-colors shrink-0 ${
+                        checked
+                          ? 'bg-[#007AFF]/10 border-[#007AFF]'
+                          : 'bg-white border-[#AAAAAA]/60'
+                      }`}
+                    >
+                      {checked && <Check className="w-2.5 h-2.5 text-[#007AFF]" strokeWidth={3} />}
+                    </span>
+                    <span>CH{idx + 1}</span>
+                  </button>
+                );
+              })}
           </div>
 
           {/* Timebase, Vertical Gain & Trigger Level Controls */}

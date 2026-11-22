@@ -201,7 +201,7 @@ function AppContent() {
               <button
                 type="button"
                 onClick={() => setSidebarCollapsed(true)}
-                className="p-1.5 rounded-md text-[#8E8E93] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
+                className="p-1.5 rounded-md text-[#1D1D1F] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
                 title="Collapse sidebar"
                 aria-label="Collapse sidebar"
               >
@@ -218,15 +218,15 @@ function AppContent() {
                 setSidebarCollapsed(false);
                 setTimeout(() => searchInputRef.current?.focus(), 60);
               }}
-              className="w-full h-9 rounded-lg flex items-center justify-center text-[#6E6E73] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
+              className="w-full h-9 rounded-lg flex items-center justify-center text-[#000000] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
               title="Search navigation"
               aria-label="Search navigation"
             >
               <Search className="w-4 h-4" />
             </button>
           ) : (
-            <div className="relative flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[13px] text-[#6E6E73] bg-black/[0.02] hover:bg-black/[0.04] focus-within:bg-white focus-within:ring-1 focus-within:ring-[#D1D1D6] transition-all">
-              <Search className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+            <div className="relative flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[13px] text-[#000000] bg-black/[0.02] hover:bg-black/[0.04] focus-within:bg-white focus-within:ring-1 focus-within:ring-[#D1D1D6] transition-all">
+              <Search className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
               <input
                 ref={searchInputRef}
                 type="text"
@@ -234,13 +234,13 @@ function AppContent() {
                 onChange={(e) => setNavQuery(e.target.value)}
                 placeholder="Search"
                 aria-label="Search AMBOX modules"
-                className="w-full bg-transparent text-[13px] text-[#1D1D1F] placeholder:text-[#8E8E93] focus:outline-none min-w-0"
+                className="w-full bg-transparent text-[13px] text-[#1D1D1F] placeholder:text-[#1D1D1F] focus:outline-none min-w-0"
               />
               {navQuery && (
                 <button
                   type="button"
                   onClick={() => setNavQuery('')}
-                  className="text-[#8E8E93] hover:text-[#1D1D1F] cursor-pointer shrink-0"
+                  className="text-[#1D1D1F] hover:text-[#1D1D1F] cursor-pointer shrink-0"
                   aria-label="Clear search"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -261,12 +261,12 @@ function AppContent() {
                 } ${
                   route === 'overview'
                     ? 'bg-[#E5E5EA] text-[#1D1D1F] font-semibold'
-                    : 'text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
+                    : 'text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
                 }`}
               >
                 <Home
                   className={`w-4 h-4 shrink-0 ${
-                    route === 'overview' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'
+                    route === 'overview' ? 'text-[#1D1D1F]' : 'text-[#000000]'
                   }`}
                 />
                 {!sidebarCollapsed && <span className="truncate">Overview</span>}
@@ -284,22 +284,22 @@ function AppContent() {
                       className={`w-full flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg text-[13px] transition-colors cursor-pointer ${
                         route === 'bench'
                           ? 'text-[#1D1D1F] font-semibold hover:bg-black/[0.04]'
-                          : 'text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
+                          : 'text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
                       }`}
                       aria-expanded={isLabSectionOpen}
                     >
                       <span className="flex items-center gap-2.5 min-w-0">
                         <Activity
                           className={`w-4 h-4 shrink-0 ${
-                            route === 'bench' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'
+                            route === 'bench' ? 'text-[#1D1D1F]' : 'text-[#000000]'
                           }`}
                         />
                         <span className="truncate">Modulation Lab</span>
                       </span>
                       {isLabSectionOpen ? (
-                        <ChevronDown className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+                        <ChevronDown className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
                       ) : (
-                        <ChevronRight className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+                        <ChevronRight className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
                       )}
                     </button>
 
@@ -321,7 +321,7 @@ function AppContent() {
                                 className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[13px] transition-colors cursor-pointer text-left ${
                                   isActive
                                     ? 'bg-[#E5E5EA] text-[#1D1D1F] font-semibold'
-                                    : 'text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
+                                    : 'text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
                                 }`}
                               >
                                 <span className="truncate">{item.label}</span>
@@ -346,7 +346,7 @@ function AppContent() {
                           className={`w-full h-9 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
                             isActive
                               ? 'bg-[#E5E5EA] text-[#1D1D1F]'
-                              : 'text-[#6E6E73] hover:bg-black/[0.04] hover:text-[#1D1D1F]'
+                              : 'text-[#000000] hover:bg-black/[0.04] hover:text-[#1D1D1F]'
                           }`}
                         >
                           <Icon className="w-4 h-4 shrink-0" />
@@ -375,19 +375,19 @@ function AppContent() {
                 } ${
                   route === 'comparison'
                     ? 'bg-[#E5E5EA] text-[#1D1D1F] font-semibold'
-                    : 'text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
+                    : 'text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
                 }`}
               >
                 <span className="flex items-center gap-2.5 min-w-0">
                   <GitCompare
                     className={`w-4 h-4 shrink-0 ${
-                      route === 'comparison' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'
+                      route === 'comparison' ? 'text-[#1D1D1F]' : 'text-[#000000]'
                     }`}
                   />
                   {!sidebarCollapsed && <span className="truncate">AM Comparison</span>}
                 </span>
                 {!sidebarCollapsed && (
-                  <ChevronRight className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
                 )}
               </button>
             )}
@@ -404,19 +404,19 @@ function AppContent() {
                 } ${
                   route === 'theory'
                     ? 'bg-[#E5E5EA] text-[#1D1D1F] font-semibold'
-                    : 'text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
+                    : 'text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium'
                 }`}
               >
                 <span className="flex items-center gap-2.5 min-w-0">
                   <BookOpen
                     className={`w-4 h-4 shrink-0 ${
-                      route === 'theory' ? 'text-[#1D1D1F]' : 'text-[#6E6E73]'
+                      route === 'theory' ? 'text-[#1D1D1F]' : 'text-[#000000]'
                     }`}
                   />
                   {!sidebarCollapsed && <span className="truncate">Equations &amp; Notes</span>}
                 </span>
                 {!sidebarCollapsed && (
-                  <ChevronRight className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
                 )}
               </button>
             )}
@@ -426,7 +426,7 @@ function AppContent() {
               !showLabGroup &&
               !showComparisonItem &&
               !showTheoryItem && (
-                <div className="px-2.5 py-3 text-xs text-[#8E8E93]">
+                <div className="px-2.5 py-3 text-xs text-[#1D1D1F]">
                   No modules match "{navQuery}"
                 </div>
               )}
@@ -439,7 +439,7 @@ function AppContent() {
             <button
               type="button"
               onClick={() => setSidebarCollapsed(false)}
-              className="w-full h-9 rounded-lg flex items-center justify-center text-[#6E6E73] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
+              className="w-full h-9 rounded-lg flex items-center justify-center text-[#000000] hover:text-[#1D1D1F] hover:bg-black/[0.05] transition-colors cursor-pointer"
               title="Expand sidebar"
               aria-label="Expand sidebar"
             >
@@ -449,13 +449,13 @@ function AppContent() {
             <button
               type="button"
               onClick={() => setRoute('landing')}
-              className="w-full flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg text-[13px] text-[#52525B] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium transition-colors cursor-pointer"
+              className="w-full flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg text-[13px] text-[#1D1D1F] hover:bg-black/[0.04] hover:text-[#1D1D1F] font-medium transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2.5 min-w-0">
-                <Compass className="w-4 h-4 text-[#6E6E73] shrink-0" />
+                <Compass className="w-4 h-4 text-[#000000] shrink-0" />
                 <span className="truncate">Landing Page</span>
               </span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#8E8E93] shrink-0" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#1D1D1F] shrink-0" />
             </button>
           )}
         </div>
@@ -470,7 +470,7 @@ function AppContent() {
             <button
               type="button"
               onClick={() => setSidebarCollapsed((c) => !c)}
-              className="p-1.5 rounded-md text-[#6E6E73] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer"
+              className="p-1.5 rounded-md text-[#000000] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer"
               title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               aria-label="Toggle sidebar"
             >
@@ -481,7 +481,7 @@ function AppContent() {
               )}
             </button>
 
-            <nav className="flex items-center gap-1.5 text-[13px] text-[#6E6E73] truncate">
+            <nav className="flex items-center gap-1.5 text-[13px] text-[#000000] truncate">
               <button
                 type="button"
                 onClick={() => setRoute('overview')}
@@ -532,7 +532,7 @@ function AppContent() {
                   className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer whitespace-nowrap tabular-nums ${
                     simulationSpeed === spd
                       ? 'bg-[#1D1D1F] text-white font-semibold'
-                      : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                      : 'text-[#000000] hover:text-[#1D1D1F]'
                   }`}
                   title={`Simulation speed ${spd}x`}
                 >
@@ -566,7 +566,7 @@ function AppContent() {
             <button
               type="button"
               onClick={handleReset}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-white border border-[#E5E5EA] text-[#52525B] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-white border border-[#E5E5EA] text-[#1D1D1F] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer whitespace-nowrap shrink-0"
               title="Reset simulation parameters"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -576,7 +576,7 @@ function AppContent() {
             <button
               type="button"
               onClick={() => setDarkMode((d) => !d)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-white border border-[#E5E5EA] text-[#52525B] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-white border border-[#E5E5EA] text-[#1D1D1F] hover:text-[#1D1D1F] hover:bg-[#F4F4F6] transition-colors cursor-pointer whitespace-nowrap shrink-0"
               title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               aria-label={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >

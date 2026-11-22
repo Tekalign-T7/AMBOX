@@ -98,13 +98,13 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
       {/* Header + Shared Live Controls */}
       <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#AAAAAA]/30 pb-5">
         <div className="space-y-1.5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6E73]">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]">
             AMBOX · CHAPTER 2 TOPIC 05
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-[#1D1D1F]">
             Same message. Different approaches.
           </h1>
-          <p className="text-sm text-[#52525B]">
+          <p className="text-sm text-[#1D1D1F]">
             Compare live spectra, bandwidth utilization, and carrier power efficiency across all
             four AM schemes.
           </p>
@@ -113,7 +113,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
         {/* White Shared Parameter Strip */}
         <div className="bg-[#F5F5F7] border border-[#AAAAAA]/30 rounded-2xl px-4 py-3 grid grid-cols-2 sm:grid-cols-5 gap-4 items-center shrink-0">
           <div className="space-y-1">
-            <div className="flex justify-between text-[11px] text-[#6E6E73]">
+            <div className="flex justify-between text-[11px] text-[#000000]">
               <LatexText text="$f_c$" />
               <span className="text-[#1D1D1F] font-semibold tabular-nums">
                 {(fc / 1000).toFixed(0)} kHz
@@ -131,7 +131,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
           </div>
 
           <div className="space-y-1">
-            <div className="flex justify-between text-[11px] text-[#6E6E73]">
+            <div className="flex justify-between text-[11px] text-[#000000]">
               <LatexText text="$f_m$" />
               <span className="text-[#1D1D1F] font-semibold tabular-nums">
                 {(fm / 1000).toFixed(1)} kHz
@@ -149,7 +149,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
           </div>
 
           <div className="space-y-1">
-            <div className="flex justify-between text-[11px] text-[#6E6E73]">
+            <div className="flex justify-between text-[11px] text-[#000000]">
               <LatexText text="$\mu$ (AM)" />
               <span className="text-[#007AFF] font-semibold tabular-nums">{mu.toFixed(2)}</span>
             </div>
@@ -165,7 +165,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
           </div>
 
           <div className="space-y-1">
-            <div className="flex justify-between text-[11px] text-[#6E6E73]">
+            <div className="flex justify-between text-[11px] text-[#000000]">
               <LatexText text="Vestige $f_v/W$" />
               <span className="text-[#1D1D1F] font-semibold tabular-nums">
                 {Math.round(vestigeRatio * 100)}%
@@ -183,7 +183,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
           </div>
 
           <div className="col-span-2 sm:col-span-1 space-y-1">
-            <div className="text-[10px] text-[#6E6E73]">Tone</div>
+            <div className="text-[10px] text-[#000000]">Tone</div>
             <div className="flex bg-[#E5E5EA]/70 p-0.5 rounded-md border border-[#AAAAAA]/30">
               {(['sine', 'two-tone'] as MessageShape[]).map((s) => (
                 <button
@@ -191,7 +191,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
                   type="button"
                   onClick={() => setMessageShape(s)}
                   className={`flex-1 py-0.5 text-[10px] rounded cursor-pointer whitespace-nowrap transition-colors ${
-                    messageShape === s ? 'bg-[#007AFF] text-white font-semibold' : 'text-[#52525B]'
+                    messageShape === s ? 'bg-[#007AFF] text-white font-semibold' : 'text-[#1D1D1F]'
                   }`}
                 >
                   {s === 'sine' ? '1-Tone' : '2-Tone'}
@@ -206,12 +206,12 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
       <section className="space-y-3">
         <div className="flex items-baseline justify-between">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6E73]">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]">
               A VISUAL COMPARISON
             </div>
             <h2 className="text-lg font-bold text-[#1D1D1F]">Where the information lives</h2>
           </div>
-          <span className="text-xs text-[#6E6E73] tabular-nums">
+          <span className="text-xs text-[#000000] tabular-nums">
             <LatexText
               text={`Reference $f_c = ${(fc / 1000).toFixed(1)}\\,\\text{kHz}$ · $W = ${(wMax / 1000).toFixed(2)}\\,\\text{kHz}$`}
             />
@@ -227,9 +227,9 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
                 onClick={() => onOpenExperiment(card.topic)}
                 className="group bg-white border border-[#AAAAAA]/30 hover:border-[#007AFF] rounded-2xl p-4 space-y-3 transition-colors cursor-pointer shadow-xs"
               >
-                <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-[#6E6E73]">
+                <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-[#000000]">
                   <span>{card.exp}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#6E6E73] group-hover:text-[#007AFF]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#000000] group-hover:text-[#007AFF]" />
                 </div>
 
                 <h3 className="text-xl font-bold text-[#1D1D1F] tracking-tight">{card.title}</h3>
@@ -247,7 +247,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between text-xs pt-1">
-                  <span className="text-[#6E6E73]">
+                  <span className="text-[#000000]">
                     <LatexText text={card.sidebandDesc} />
                   </span>
                   <span className="text-[#1D1D1F] font-semibold tabular-nums">
@@ -263,7 +263,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
                   />
                 </div>
 
-                <div className="text-[11px] text-[#6E6E73]">
+                <div className="text-[11px] text-[#000000]">
                   <LatexText text={card.carrierTag} />
                 </div>
               </div>
@@ -277,13 +277,13 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-bold text-[#1D1D1F]">The modulation landscape</h2>
-            <p className="text-xs text-[#6E6E73]">
+            <p className="text-xs text-[#000000]">
               <LatexText
                 text={`$B$ = message bandwidth (${(wMax / 1000).toFixed(2)} kHz) · $B_v$ = vestigial bandwidth (${((wMax * vestigeRatio) / 1000).toFixed(2)} kHz)`}
               />
             </p>
           </div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6E6E73]">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#000000]">
             04 TECHNIQUES
           </span>
         </div>
@@ -363,31 +363,31 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
                         style={{ backgroundColor: row.dot }}
                       />
                       <span>{row.name}</span>
-                      <ArrowUpRight className="w-3 h-3 text-[#6E6E73]" />
+                      <ArrowUpRight className="w-3 h-3 text-[#000000]" />
                     </div>
-                    <div className="text-[11px] text-[#6E6E73] pl-4">{row.sub}</div>
+                    <div className="text-[11px] text-[#000000] pl-4">{row.sub}</div>
                   </td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${
                         row.carrierHighlight
                           ? 'bg-[#007AFF]/10 text-[#007AFF]'
-                          : 'bg-[#F5F5F7] text-[#52525B]'
+                          : 'bg-[#F5F5F7] text-[#1D1D1F]'
                       }`}
                     >
                       {row.carrier}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 text-[#52525B]">
+                  <td className="py-3.5 px-4 text-[#1D1D1F]">
                     <LatexText text={row.sidebands} />
                   </td>
                   <td className="py-3.5 px-4 font-semibold text-[#1D1D1F] tabular-nums">
                     <LatexText text={row.bw} />
                   </td>
-                  <td className="py-3.5 px-4 text-[#52525B] tabular-nums">
+                  <td className="py-3.5 px-4 text-[#1D1D1F] tabular-nums">
                     <LatexText text={row.eff} />
                   </td>
-                  <td className="py-3.5 px-4 text-[#52525B]">
+                  <td className="py-3.5 px-4 text-[#1D1D1F]">
                     <LatexText text={row.demod} />
                   </td>
                 </tr>
@@ -400,7 +400,7 @@ export const ComparisonStudioView: React.FC<ComparisonStudioViewProps> = ({
       {/* Bottom Takeaway Callout */}
       <div className="bg-[#F5F5F7] border border-[#AAAAAA]/30 rounded-2xl px-5 py-4 flex items-start gap-3">
         <Lightbulb className="w-4 h-4 text-[#007AFF] shrink-0 mt-0.5" />
-        <div className="text-xs text-[#52525B] leading-relaxed">
+        <div className="text-xs text-[#1D1D1F] leading-relaxed">
           <span className="font-semibold text-[#1D1D1F] block">
             There is no single best modulation technique.
           </span>

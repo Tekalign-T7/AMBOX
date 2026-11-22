@@ -66,40 +66,36 @@ const BENCH_STEPS: {
     num: '01',
     shortTitle: 'DSB-FC',
     sublabel: 'Full carrier',
-    fullTitle: 'Double Sideband',
-    accentWord: 'Full Carrier.',
-    tagline:
-      'Conventional AM modulation & diode-RC envelope demodulation, over-modulation distortion, and square-law generation.',
+    fullTitle: 'Double Sideband Full Carrier',
+    accentWord: '',
+    tagline: 'Double Sideband Full Carrier',
   },
   {
     id: 'dsb-sc',
     num: '02',
     shortTitle: 'DSB-SC',
     sublabel: 'Suppressed carrier',
-    fullTitle: 'Double Sideband',
-    accentWord: 'Suppressed Carrier.',
-    tagline:
-      'Phase reversals, balanced ring modulation, coherent LO demodulation (quadrature null), and Costas I/Q recovery.',
+    fullTitle: 'Double Sideband Full Carrier',
+    accentWord: '',
+    tagline: 'Double Sideband Full Carrier',
   },
   {
     id: 'ssb',
     num: '03',
     shortTitle: 'SSB-SC',
     sublabel: 'Single sideband',
-    fullTitle: 'Single Sideband',
-    accentWord: 'Suppressed Carrier.',
-    tagline:
-      'Half-bandwidth USB/LSB modulation & coherent demodulation via Hilbert phase discrimination or sharp BPF.',
+    fullTitle: 'Double Sideband Full Carrier',
+    accentWord: '',
+    tagline: 'Double Sideband Full Carrier',
   },
   {
     id: 'vsb',
     num: '04',
     shortTitle: 'VSB',
     sublabel: 'Vestigial sideband',
-    fullTitle: 'Vestigial',
-    accentWord: 'Sideband.',
-    tagline:
-      'Purpose: Compare VSB shaping filter $H(f+f_c)+H(f-f_c)=1$ with DSB/SSB for distortion-free coherent recovery.',
+    fullTitle: 'Double Sideband Full Carrier',
+    accentWord: '',
+    tagline: 'Double Sideband Full Carrier',
   },
 ];
 
@@ -114,7 +110,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
   const [scopeMode, setScopeMode] = useState<'stacked' | 'overlay'>('stacked');
   const [twoSidedSpec, setTwoSidedSpec] = useState<boolean>(false);
   const [specScale, setSpecScale] = useState<'linear' | 'dB'>('linear');
-  const [paramsCollapsed, setParamsCollapsed] = useState<boolean>(false);
+  const [paramsCollapsed, setParamsCollapsed] = useState<boolean>(true);
   const [spectrumCollapsed, setSpectrumCollapsed] = useState<boolean>(true);
 
   // Shared RF / Baseband controls
@@ -133,7 +129,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
   );
   const [fdmChannels, setFdmChannels] = useState<FDMChannelConfig[]>([
     { id: 1, label: 'Ch 1', enabled: true, fc: 8000, fm: 700, Am: 1.0, color: '#007AFF' },
-    { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#1D1D1F' },
+    { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#7C3AED' },
     { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#6E6E73' },
   ]);
   const [tunedChannelId, setTunedChannelId] = useState<number>(1);
@@ -309,7 +305,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
     setMedium('coax');
     setFdmChannels([
       { id: 1, label: 'Ch 1', enabled: true, fc: 8000, fm: 700, Am: 1.0, color: '#007AFF' },
-      { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#1D1D1F' },
+      { id: 2, label: 'Ch 2', enabled: true, fc: 14000, fm: 900, Am: 1.0, color: '#7C3AED' },
       { id: 3, label: 'Ch 3', enabled: true, fc: 20000, fm: 600, Am: 1.0, color: '#6E6E73' },
     ]);
     setTunedChannelId(1);
@@ -686,7 +682,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'fdm-rx',
             label: 'y_demod(t)',
             sublabel: `Recovered ${fdmSim.tunedLabel}`,
-            color: '#1D1D1F',
+            color: '#7C3AED',
             data: fdmSim.rxRecovered,
           },
           {
@@ -752,7 +748,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'rc',
               label: 'v_RC(t)',
               sublabel: `RC Envelope (τ=${rcTimeMs.toFixed(2)} ms)`,
-              color: '#1D1D1F',
+              color: '#7C3AED',
               data: amSim.rcDetected,
               overlayOnId: 'rect',
             },
@@ -863,7 +859,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'demod-am',
             label: 'y_demod(t)',
             sublabel: amSim.isOvermodulated ? 'Distorted RC Recovery' : 'RC Envelope Demodulated',
-            color: '#1D1D1F',
+            color: '#7C3AED',
             data: amSim.rcDemodAC,
           },
           {
@@ -935,7 +931,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'demod-i',
               label: 'y_I(t) demod',
               sublabel: 'In-Phase Demodulated',
-              color: '#1D1D1F',
+              color: '#7C3AED',
               data: dsbSim.demodI,
               overlayOnId: 'm-ref',
             },
@@ -1022,7 +1018,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               dsbRxMode === 'costas'
                 ? 'Costas Demodulated Output'
                 : `Coherent Rx (cos φ = ${dsbSim.gainFactor.toFixed(2)})`,
-            color: '#1D1D1F',
+            color: '#7C3AED',
             data: dsbSim.demodI,
           },
           {
@@ -1083,7 +1079,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               id: 'ssb-rx',
               label: 'y_demod(t)',
               sublabel: `Coherent Rx (φ=${ssbPhaseErrDeg}°)`,
-              color: '#1D1D1F',
+              color: '#7C3AED',
               data: ssbSim.demodulated,
               overlayOnId: 'ssb-tx',
             },
@@ -1160,7 +1156,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
             id: 'ssb-y',
             label: 'y_demod(t)',
             sublabel: 'Coherent Demodulated',
-            color: '#1D1D1F',
+            color: '#7C3AED',
             data: ssbSim.demodulated,
           },
           {
@@ -1248,7 +1244,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
           id: 'vsb-rx',
           label: 'y_demod(t)',
           sublabel: vsbSkew === 0 ? 'Distortion-Free Recovery' : 'Skew Distorted',
-          color: '#1D1D1F',
+          color: '#7C3AED',
           data: safeVsb.demodulated,
         },
         {
@@ -1517,7 +1513,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                       className={`px-2 py-0.5 rounded text-[10px] cursor-pointer ${
                         ch.enabled
                           ? 'bg-[#1D1D1F] text-white font-semibold'
-                          : 'bg-[#E5E5EA] text-[#6E6E73]'
+                          : 'bg-[#E5E5EA] text-[#000000]'
                       }`}
                     >
                       {ch.enabled ? 'ON' : 'OFF'}
@@ -1883,7 +1879,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
       {/* Compact Editorial Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-0.5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6E73] tabular-nums">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000] tabular-nums">
             AMBOX BENCH / {stepMeta.num}
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-[#1D1D1F]">
@@ -1892,59 +1888,20 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
               {stepMeta.accentWord}
             </span>
           </h1>
-          <p className="text-xs text-[#52525B]">
+          <p className="text-xs text-[#1D1D1F]">
             <LatexText text={stepMeta.tagline} />
           </p>
         </div>
 
         <div className="text-right font-nura font-semibold text-2xl text-[#AAAAAA] tabular-nums shrink-0 hidden sm:block">
           {stepMeta.num}{' '}
-          <span className="text-sm text-[#6E6E73]">
+          <span className="text-sm text-[#000000]">
             / {String(BENCH_STEPS.length).padStart(2, '0')}
           </span>
         </div>
       </div>
 
-      {/* Horizontal Experiment Stepper Bar */}
-      {!plotExpanded && (
-        <div className="bg-[#F5F5F7] border border-[#AAAAAA]/30 rounded-xl p-1 grid grid-cols-2 sm:grid-cols-4 gap-1">
-          {BENCH_STEPS.map((step) => {
-            const isActive = step.id === activeTopic;
-            return (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => onSelectTopic(step.id)}
-                className={`px-3 py-1.5 rounded-lg text-left transition-colors cursor-pointer ${
-                  isActive
-                    ? 'bg-[#1D1D1F] text-[#F5F5F7] shadow-2xs'
-                    : 'hover:bg-white/80 text-[#52525B] hover:text-[#1D1D1F]'
-                }`}
-              >
-                <div className="flex items-baseline gap-1.5">
-                  <span
-                    className={`text-[10px] tabular-nums ${
-                      isActive ? 'text-[#007AFF] font-semibold' : 'text-[#6E6E73]'
-                    }`}
-                  >
-                    {step.num}
-                  </span>
-                  <span className={`text-xs truncate ${isActive ? 'font-bold' : 'font-semibold'}`}>
-                    {step.shortTitle}
-                  </span>
-                </div>
-                <div
-                  className={`text-[10px] truncate pl-5 ${
-                    isActive ? 'text-[#AAAAAA]' : 'text-[#6E6E73]'
-                  }`}
-                >
-                  {step.sublabel}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
+
 
       {/* Underline Sub-Tabs */}
       {!plotExpanded && (
@@ -1973,7 +1930,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                 className={`pb-2 text-xs font-semibold border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
                   active
                     ? 'border-[#007AFF] text-[#1D1D1F]'
-                    : 'border-transparent text-[#6E6E73] hover:text-[#1D1D1F]'
+                    : 'border-transparent text-[#000000] hover:text-[#1D1D1F]'
                 }`}
               >
                 {tab.label}
@@ -1988,7 +1945,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
         <div className="bg-white border border-[#AAAAAA]/30 rounded-2xl overflow-clip shadow-xs">
           {/* Chassis Top Bar */}
           <div className="px-4 py-2 bg-[#F5F5F7] border-b border-[#AAAAAA]/30 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6E73]">
+            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]">
               <span>SIGNAL ANALYSIS</span>
               <span>/</span>
               <span className="text-[#1D1D1F] font-semibold">{stepMeta.shortTitle}</span>
@@ -2004,7 +1961,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                     className={`px-2 py-0.5 rounded transition-colors cursor-pointer tabular-nums ${
                       scopeZoom === z
                         ? 'bg-[#007AFF] text-white font-semibold'
-                        : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                        : 'text-[#000000] hover:text-[#1D1D1F]'
                     }`}
                     title={`Time-domain zoom ${z}x`}
                   >
@@ -2070,7 +2027,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                 <div className="xl:col-span-6 space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <div className="text-[9px] font-semibold uppercase tracking-wider text-[#6E6E73]">
+                      <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
                         TIME DOMAIN
                       </div>
                       <h2 className="text-base font-bold text-[#1D1D1F]">{plotCfg.scopeTitle}</h2>
@@ -2083,7 +2040,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                         className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium rounded-lg border transition-colors cursor-pointer ${
                           triggerLocked
                             ? 'bg-[#007AFF] text-white border-[#007AFF]'
-                            : 'bg-[#F5F5F7] text-[#52525B] border-[#AAAAAA]/35 hover:text-[#1D1D1F]'
+                            : 'bg-[#F5F5F7] text-[#1D1D1F] border-[#AAAAAA]/35 hover:text-[#1D1D1F]'
                         }`}
                         title="Lock trigger phase for completely stationary waveform inspection"
                       >
@@ -2107,7 +2064,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                           className={`px-2.5 py-0.5 text-[11px] font-medium rounded-md cursor-pointer ${
                             scopeMode === 'stacked'
                               ? 'bg-white text-[#1D1D1F] font-semibold shadow-xs'
-                              : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                              : 'text-[#000000] hover:text-[#1D1D1F]'
                           }`}
                         >
                           Stacked
@@ -2118,7 +2075,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                           className={`px-2.5 py-0.5 text-[11px] font-medium rounded-md cursor-pointer ${
                             scopeMode === 'overlay'
                               ? 'bg-white text-[#1D1D1F] font-semibold shadow-xs'
-                              : 'text-[#6E6E73] hover:text-[#1D1D1F]'
+                              : 'text-[#000000] hover:text-[#1D1D1F]'
                           }`}
                         >
                           Overlay
@@ -2132,7 +2089,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                     {plotCfg.scopePills.map((p, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded bg-[#F5F5F7] border border-[#AAAAAA]/30 text-[10px] text-[#52525B] tabular-nums"
+                        className="px-2 py-0.5 rounded bg-[#F5F5F7] border border-[#AAAAAA]/30 text-[10px] text-[#1D1D1F] tabular-nums"
                       >
                         <LatexText text={p} />
                       </span>
@@ -2194,7 +2151,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                       }`}
                     >
                       <div>
-                        <div className="text-[9px] font-semibold uppercase tracking-wider text-[#6E6E73]">
+                        <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
                           FREQUENCY DOMAIN
                         </div>
                         <h2 className="text-sm font-bold text-[#1D1D1F]">Spectrum analyzer</h2>
@@ -2209,7 +2166,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                             <button
                               type="button"
                               onClick={() => setTwoSidedSpec((v) => !v)}
-                              className="px-2 py-0.5 rounded bg-white border border-[#AAAAAA]/35 text-[10px] text-[#52525B] hover:text-[#007AFF] cursor-pointer"
+                              className="px-2 py-0.5 rounded bg-white border border-[#AAAAAA]/35 text-[10px] text-[#1D1D1F] hover:text-[#007AFF] cursor-pointer"
                             >
                               {twoSidedSpec ? '±f' : '+f'}
                             </button>
@@ -2218,13 +2175,13 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                               onClick={() =>
                                 setSpecScale((s) => (s === 'linear' ? 'dB' : 'linear'))
                               }
-                              className="px-2 py-0.5 rounded bg-white border border-[#AAAAAA]/35 text-[10px] text-[#52525B] hover:text-[#007AFF] cursor-pointer"
+                              className="px-2 py-0.5 rounded bg-white border border-[#AAAAAA]/35 text-[10px] text-[#1D1D1F] hover:text-[#007AFF] cursor-pointer"
                             >
                               {specScale === 'linear' ? 'Lin' : 'dB'}
                             </button>
                           </div>
                         )}
-                        <span className="inline-flex items-center gap-1 text-[10px] text-[#6E6E73]">
+                        <span className="inline-flex items-center gap-1 text-[10px] text-[#000000]">
                           <span>{spectrumCollapsed ? 'Show spectrum' : 'Hide spectrum'}</span>
                           {spectrumCollapsed ? (
                             <ChevronDown className="w-3.5 h-3.5" />
@@ -2254,13 +2211,13 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
 
                   {/* Occupied Bandwidth Readout */}
                   <div className="border-t border-[#AAAAAA]/30 pt-3 space-y-1">
-                    <div className="text-[9px] font-semibold uppercase tracking-wider text-[#6E6E73]">
+                    <div className="text-[9px] font-semibold uppercase tracking-wider text-[#000000]">
                       <LatexText text={plotCfg.bwTitle} />
                     </div>
                     <div className="text-2xl font-bold text-[#1D1D1F] tabular-nums">
                       {plotCfg.bwValue}
                     </div>
-                    <p className="text-[11px] text-[#52525B] leading-relaxed">
+                    <p className="text-[11px] text-[#1D1D1F] leading-relaxed">
                       <LatexText text={plotCfg.bwSub} />
                     </p>
                   </div>
@@ -2293,7 +2250,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                         x: antennaFcMHz * 1e6,
                         y: antennaData.quarterWaveMeters,
                         label: `${antennaData.quarterWaveMeters.toFixed(1)}m`,
-                        color: '#1D1D1F',
+                        color: '#7C3AED',
                       }}
                       logX
                       logY
@@ -2356,7 +2313,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                         x: Math.min(1, mu),
                         y: ((Math.min(1, mu) ** 2) / (2 + Math.min(1, mu) ** 2)) * 100,
                         label: `${amSim.efficiencyPct.toFixed(1)}%`,
-                        color: '#1D1D1F',
+                        color: '#7C3AED',
                       }}
                       yRange={[0, 40]}
                       xLabel="μ"
@@ -2448,7 +2405,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setParamsCollapsed(true)}
-                    className="p-1 rounded-md text-[#6E6E73] hover:text-[#007AFF] hover:bg-[#007AFF]/10 transition-colors cursor-pointer"
+                    className="p-1 rounded-md text-[#000000] hover:text-[#007AFF] hover:bg-[#007AFF]/10 transition-colors cursor-pointer"
                     title="Collapse parameters sidebar"
                     aria-label="Collapse parameters sidebar"
                   >
@@ -2475,7 +2432,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                       <LatexText text="Quadrature Null at $\phi = \pm 90^\circ$" />
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 text-[#52525B]">
+                    <div className="flex items-center gap-2 text-[#1D1D1F]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#007AFF] shrink-0" />
                       <span>Modulation &amp; demodulation synced</span>
                     </div>
@@ -2490,13 +2447,13 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
         <div className="space-y-5">
           <div className="bg-white border border-[#AAAAAA]/30 rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between space-y-5 border-b lg:border-b-0 lg:border-r border-[#AAAAAA]/30">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6E6E73]">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]">
                 THE MATHEMATICAL MODEL
               </div>
               <div className="text-lg md:text-xl text-[#1D1D1F] py-4 text-center bg-[#F5F5F7] rounded-xl px-4 border border-[#AAAAAA]/25">
                 <Latex math={theoryCard.formula} displayMode />
               </div>
-              <p className="text-xs text-[#52525B]">
+              <p className="text-xs text-[#1D1D1F]">
                 <LatexText text={theoryCard.caption} />
               </p>
               <button
@@ -2566,7 +2523,7 @@ export const ExperimentBenchView: React.FC<ExperimentBenchViewProps> = ({
                 </div>
                 <div>
                   <div className="text-xs font-bold text-[#1D1D1F]">{item.title}</div>
-                  <p className="text-[11px] text-[#6E6E73] mt-0.5 leading-relaxed">
+                  <p className="text-[11px] text-[#000000] mt-0.5 leading-relaxed">
                     <LatexText text={item.desc} />
                   </p>
                 </div>
